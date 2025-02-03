@@ -1,5 +1,6 @@
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 
 class BottomMenu extends StatefulWidget {
   const BottomMenu({
@@ -23,14 +24,14 @@ class _BottomMenuState extends State<BottomMenu> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        flexibleSpace: Container(
+/*         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: <Color>[Colors.red, Colors.blue]),
           ),
-        ),
+        ), */
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: const Center(
@@ -52,29 +53,32 @@ class _BottomMenuState extends State<BottomMenu> {
           items: [
             /// Add
             CrystalNavigationBarItem(
-              icon: Icons.airplane_ticket,
-              unselectedIcon: Icons.airplane_ticket_outlined,
+              icon: HugeIcons.strokeRoundedTicket01,
+              unselectedIcon: HugeIcons.strokeRoundedTicket01,
               selectedColor: Colors.white,
             ),
 
             /// Home
             CrystalNavigationBarItem(
-              icon: Icons.home,
-              unselectedIcon: Icons.home_outlined,
+              icon: HugeIcons.strokeRoundedHome01,
+              unselectedIcon: HugeIcons.strokeRoundedHome07,
               selectedColor: Colors.white,
             ),
 
             /// Search
             CrystalNavigationBarItem(
-                icon: Icons.search,
-                unselectedIcon: Icons.search_outlined,
+                icon: HugeIcons.strokeRoundedSearch01,
+                unselectedIcon: HugeIcons.strokeRoundedSearch01,
                 selectedColor: Colors.white),
           ],
         ),
       ),
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [Colors.red, Colors.blue]),
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.white, Colors.blue]),
         ),
         child: const Center(
           child: Text(
