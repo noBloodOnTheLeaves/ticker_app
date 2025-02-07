@@ -20,9 +20,11 @@ class _BottomMenuState extends State<BottomMenu> {
   ];
   int currentPage = 0;
   void changePage(int page) {
-    setState(() {
-      currentPage = page;
-    });
+    if (page != 2) {
+      setState(() {
+        currentPage = page;
+      });
+    }
   }
 
   @override
@@ -40,11 +42,11 @@ class _BottomMenuState extends State<BottomMenu> {
         ), */
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: const Center(
+/*         title: const Center(
           child: Text(
             'VERY IMPORTNAT INFO ↓',
           ),
-        ),
+        ), */
       ),
       extendBody: true, //<------like this
       bottomNavigationBar: Padding(
@@ -72,10 +74,10 @@ class _BottomMenuState extends State<BottomMenu> {
             ),
 
             /// Search
-            /* CrystalNavigationBarItem(
+            CrystalNavigationBarItem(
                 icon: HugeIcons.strokeRoundedSearch01,
                 unselectedIcon: HugeIcons.strokeRoundedSearch01,
-                selectedColor: Colors.white), */
+                selectedColor: Colors.white),
           ],
         ),
       ),
@@ -86,7 +88,9 @@ class _BottomMenuState extends State<BottomMenu> {
               end: Alignment.bottomCenter,
               colors: [Colors.white, Colors.blue]),
         ),
-        child: pages[currentPage],
+        child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: pages[currentPage]),
       ),
     );
   }
