@@ -1,6 +1,8 @@
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:ticker_app/pages/home_page.dart';
+import 'package:ticker_app/pages/ticket_page.dart';
 
 class BottomMenu extends StatefulWidget {
   const BottomMenu({
@@ -12,6 +14,10 @@ class BottomMenu extends StatefulWidget {
 }
 
 class _BottomMenuState extends State<BottomMenu> {
+  final pages = [
+    const TicketPage(),
+    const HomePage(),
+  ];
   int currentPage = 0;
   void changePage(int page) {
     setState(() {
@@ -66,10 +72,10 @@ class _BottomMenuState extends State<BottomMenu> {
             ),
 
             /// Search
-            CrystalNavigationBarItem(
+            /* CrystalNavigationBarItem(
                 icon: HugeIcons.strokeRoundedSearch01,
                 unselectedIcon: HugeIcons.strokeRoundedSearch01,
-                selectedColor: Colors.white),
+                selectedColor: Colors.white), */
           ],
         ),
       ),
@@ -80,12 +86,7 @@ class _BottomMenuState extends State<BottomMenu> {
               end: Alignment.bottomCenter,
               colors: [Colors.white, Colors.blue]),
         ),
-        child: const Center(
-          child: Text(
-            'My babe ❤️',
-            style: TextStyle(fontSize: 50),
-          ),
-        ),
+        child: pages[currentPage],
       ),
     );
   }
