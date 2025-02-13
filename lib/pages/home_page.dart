@@ -4,8 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:ticker_app/res/styles/app_styles.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 2),
+    vsync: this,
+  )..;
+  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+    begin: const Offset(0.0, 0.0),
+    end: const Offset(0.0, 1.5),
+  ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticIn));
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +62,16 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        child: Icon(
-                          HugeIcons.strokeRoundedAirplane02,
-                          size: 35,
+                        width: 60,
+                        height: 60,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: SlideTransition(
+                          position: _offsetAnimation,
+                          child: Image.asset('assets/images/plane_icon.png'),
                         ),
                       )
                     ],
@@ -71,10 +99,12 @@ class GlassmorphicTextField extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 5, top: 10),
           width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(color: Colors.white24),
-            color: Colors.transparent,
-          ),
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(color: Colors.white24),
+              gradient: LinearGradient(colors: [
+                Colors.white10.withOpacity(0.1),
+                Colors.white24.withOpacity(0.3),
+              ], begin: Alignment.bottomLeft, end: Alignment.topRight)),
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: TextField(
@@ -86,7 +116,7 @@ class GlassmorphicTextField extends StatelessWidget {
                 focusedErrorBorder: InputBorder.none,
                 disabledBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
-                hintText: 'Senders name',
+                hintText: 'Search tickets ...',
                 suffixIcon: Icon(HugeIcons.strokeRoundedSearch01),
               ),
             ),
