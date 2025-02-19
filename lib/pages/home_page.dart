@@ -2,7 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:ticker_app/components/glass_card.dart';
+import 'package:ticker_app/components/list_title.dart';
 import 'package:ticker_app/res/styles/app_styles.dart';
+import 'package:ticker_app/res/media.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,11 +19,50 @@ class _HomePageState extends State<HomePage>
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,
-  )..;
+  );
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: const Offset(0.0, 0.0),
     end: const Offset(0.0, 1.5),
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticIn));
+
+  List cards = [
+    {
+      "imageUrl": "assets/images/paris.jpg",
+      "title": "Paris",
+      "description": "Experience the city of love"
+    },
+    {
+      "imageUrl": "assets/images/new_york.jpg",
+      "title": "New York",
+      "description": "The city that never sleeps"
+    },
+    {
+      "imageUrl": "assets/images/tokyo.jpg",
+      "title": "Tokyo",
+      "description": "Modern meets traditional"
+    },
+    {
+      "imageUrl": "assets/images/moscow.jpg",
+      "title": "Moscow",
+      "description": "Some description here"
+    },
+    {
+      "imageUrl": "assets/images/italy.jpg",
+      "title": "Italy",
+      "description": "Experience the beauty of Italy"
+    }
+  ];
+
+  void repeatOnce() async {
+    await _controller.forward();
+    await _controller.reverse();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    repeatOnce();
+  }
 
   @override
   void dispose() {
@@ -71,13 +113,31 @@ class _HomePageState extends State<HomePage>
                         ),
                         child: SlideTransition(
                           position: _offsetAnimation,
-                          child: Image.asset('assets/images/plane_icon.png'),
+                          child: Image.asset(AppMedia.logo),
                         ),
                       )
                     ],
                   ),
                   SizedBox(height: 30),
                   GlassmorphicTextField(),
+                  SizedBox(height: 50),
+                  ListTitle(title: "Where to go?", viewAll: "View all"),
+                  SizedBox(height: 15),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: cards
+                          .map((e) => Padding(
+                                padding: const EdgeInsets.only(right: 30),
+                                child: GlassCard(
+                                  imageUrl: e["imageUrl"],
+                                  title: e["title"],
+                                  description: e["description"],
+                                ),
+                              ))
+                          .toList(),
+                    ),
+                  ),
                 ],
               ),
             )

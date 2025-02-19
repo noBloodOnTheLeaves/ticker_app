@@ -13,11 +13,9 @@ class TicketPage extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [Colors.white, Colors.blue]),
         ),
-        child: const Center(
-            child: Text(
-          "Tickets",
-          style: TextStyle(fontSize: 50),
-        )),
+        child: Center(
+          child: Text("Ticket Page"),
+        ),
       ),
     );
   }
